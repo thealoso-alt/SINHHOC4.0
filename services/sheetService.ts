@@ -4,6 +4,9 @@ import { QuizResult } from "../types";
 const STORAGE_KEY_URL = 'google_sheet_webapp_url';
 const STORAGE_KEY_HISTORY = 'quiz_history';
 
+// Link mặc định do người dùng cung cấp
+const DEFAULT_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxBF4Un5n20YMQB_kzZjGSerxs4X8Au-hOR0nLR-4uMOuK-Jo-IEYKEhA5BmaNIVZMcNw/exec';
+
 export const saveSheetUrl = (url: string) => {
   if (url && url.trim() !== "") {
     localStorage.setItem(STORAGE_KEY_URL, url.trim());
@@ -11,7 +14,8 @@ export const saveSheetUrl = (url: string) => {
 };
 
 export const getSheetUrl = () => {
-  return localStorage.getItem(STORAGE_KEY_URL) || "";
+  // Ưu tiên link trong localStorage, nếu chưa có thì dùng link mặc định
+  return localStorage.getItem(STORAGE_KEY_URL) || DEFAULT_SHEET_URL;
 };
 
 export const saveToGoogleSheets = async (result: QuizResult): Promise<boolean> => {
